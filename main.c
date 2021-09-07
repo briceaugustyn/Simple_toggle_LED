@@ -29,8 +29,9 @@ toggleLed(unsidgned char ledMask)
    */
        
        
-       
-       
+  
+
+       asm {
       // Init_Ports
 		movlb 0
 		clrf PORTB
@@ -45,22 +46,24 @@ toggleLed(unsidgned char ledMask)
        ; These are actually called labels.  They're the only thing allowed in column 0. 
 ; MPlab assumes that anything not a semicolon in column 0 is a label.
 
-LED			equ 0				; LED on pin 0 of port B
+LED		equ 0				; LED on pin 0 of port B
        
        ; Toggle the state of the LED on Port B
 Toggle_LED
 	
-	btfsc PORTB, LED	; is the LED off?
-	bra Is_On			; Go to Is_On.  Will be skipped if the LED is off
+		btfsc PORTB, LED	; is the LED off?
+		bra Is_On		; Go to Is_On.  Will be skipped if the LED is off
 
 Is_Off					; Executes if the LED is off
-	bsf PORTB, LED
-	return
+		bsf PORTB, LED
+		return
 
 Is_On					; Executes if the LED is on
-	bcf PORTB, LED
+		bcf PORTB, LED
 	return
        
+	
+	};
        
        
 };
